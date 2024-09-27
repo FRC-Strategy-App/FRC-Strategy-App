@@ -2,9 +2,11 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:frc_stategy_app/pages/drawings_page.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'schedule_import_page.dart';
 import 'manual_match_page.dart';
+import 'feedback.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -55,6 +57,15 @@ class HomePage extends StatelessWidget {
                     pathplannerDirectory: localFileSystem.directory('C:\\Users\\nandji\\Documents\\test'), // Set this to your desired directory
                     fs: localFileSystem,
                   )),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Feedback'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (Context) =>  const FeedbackFeature()),
                 );
               },
             ),

@@ -24,7 +24,7 @@ class _ScheduleImportPageState extends State<ScheduleImportPage> {
 
     try {
       List<MatchData> matches = await fetchMatchData(apiKey, eventKey, teamNumber);
-
+      
       // for (var match in matches) {
       //   for (var phase in ['auto', 'teleop', 'endgame']) {
       //     await saveDrawing(
@@ -62,19 +62,19 @@ class _ScheduleImportPageState extends State<ScheduleImportPage> {
             TextField(
               controller: apiKeyController,
               decoration: const InputDecoration(
-                labelText: 'Blue Alliance API Key',
+                labelText: 'Blue Alliance API Key (ETag)',
               ),
             ),
             TextField(
               controller: eventKeyController,
               decoration: const InputDecoration(
-                labelText: 'Event Key',
+                labelText: 'Event Key eg: 2016nytr',
               ),
             ),
             TextField(
               controller: teamNumberController,
               decoration: const InputDecoration(
-                labelText: 'Team Number',
+                labelText: 'Team Number eg: frc254',
               ),
             ),
             const SizedBox(height: 20),
