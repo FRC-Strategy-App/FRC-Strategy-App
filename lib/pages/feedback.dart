@@ -39,9 +39,8 @@ Widget build(BuildContext context) {
       GlobalFeedbackLocalizationsDelegate(),
     ],
     localeOverride: const Locale('en'),
-    child: const MaterialApp(
-      home: FeedbackScreen(),
-    ),
+    child: 
+      const FeedbackScreen()
   );
 }
 }
@@ -62,23 +61,25 @@ class FeedbackScreen extends StatelessWidget{
           child: Column(
             children: <Widget>[
               const SizedBox(height: 10,),
-              Center(
-                child: SizedBox(
-                  width: 200,
-                  height: 70,
-                  child:ElevatedButton(
-                    onPressed: () {
-                      BetterFeedback.of(context).show(
-                        (UserFeedback feedback) async{
-                          // This is jut an alert for testing feedbacks, can be removed if needed. 
-                          alertFeedbackFunction(context, feedback);
-                        }
-                      );
-                    },
-                    child: const Text("Provide Feedback"),
+              if(Platform.isMacOS || Platform.isAndroid || Platform.isIOS)...{
+                Center(
+                  child: SizedBox(
+                    width: 200,
+                    height: 70,
+                    child:ElevatedButton(
+                      onPressed: () {
+                        BetterFeedback.of(context).show(
+                          (UserFeedback feedback) async{
+                            // This is jut an alert for testing feedbacks, can be removed if needed. 
+                            alertFeedbackFunction(context, feedback);
+                          }
+                        );
+                      },
+                      child: const Text("Provide Feedback"),
+                    ),
                   ),
                 ),
-              ),
+              },
               const SizedBox(height: 20,),
               // This does not work on desktop, known for ipad.
               if(!kIsWeb && (Platform.isAndroid || Platform.isIOS)) ...{
