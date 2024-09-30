@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 final Uri _url = Uri.parse("https://github.com/FRC-Strategy-App/FRC-Strategy-App");
+final Uri _emailUrl = Uri.parse("https://gmail.com");
 
 class FeedbackFeature extends StatefulWidget {
   const FeedbackFeature({super.key});
@@ -75,7 +76,7 @@ class FeedbackScreen extends StatelessWidget{
                           }
                         );
                       },
-                      child: const Text("Provide Feedback"),
+                      child: const Text("Provide Feedback via Email"),
                     ),
                   ),
                 ),
@@ -125,6 +126,33 @@ class FeedbackScreen extends StatelessWidget{
                   ),
                 )
               ),
+              const SizedBox(height: 20),
+              const Center(
+                child:Text('Best way to contact us is always through email, feel free to contact us for any issue: ',style: TextStyle(color: Colors.white))
+              ),
+              const SizedBox(height:10),
+              if(!Platform.isIOS)...{
+                const Center(
+                  child:Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 250,
+                        height: 70,
+                        child: ElevatedButton(
+                          onPressed: _launchEmailUrl,
+                          child: Text('Justindujun@gmail.com',),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 250,
+                        height: 70,
+                        child: ElevatedButton(onPressed: _launchEmailUrl, child: Text('passgenerator2023@gmail.com')),
+                      )
+                  ]
+                  )
+                ),
+              },
             ],
           )
         ),
@@ -134,6 +162,19 @@ class FeedbackScreen extends StatelessWidget{
 }
 
 void alertFeedbackFunction(BuildContext context, UserFeedback feedback) {
+    // Send email to us
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'passgenerator2023@gmail.com', // can be changed to a non-personal email account. 
+      queryParameters: {
+        'subject': 'FRC-Stragety Feedback Email',
+        'body': feedback.text,
+        'cc' : 'justindujun@gmail.com',
+        },
+      );
+    launchUrl(emailLaunchUri);
+
+    // regular alert. 
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -156,6 +197,12 @@ void alertFeedbackFunction(BuildContext context, UserFeedback feedback) {
 Future<void> _launchUrl() async {
   if (!await launchUrl(_url)) {
     throw Exception('Could not launch $_url');
+  }
+}
+
+Future<void> _launchEmailUrl() async{
+  if(!await launchUrl(_emailUrl)){
+    throw Exception('Could not launch $_emailUrl');
   }
 }
 
