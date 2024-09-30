@@ -17,14 +17,14 @@ class _ScheduleImportPageState extends State<ScheduleImportPage> {
   final TextEditingController eventKeyController = TextEditingController();
   final TextEditingController teamNumberController = TextEditingController();
 
+
   void _importSchedule() async {
     final apiKey = apiKeyController.text;
     final eventKey = eventKeyController.text;
     final teamNumber = teamNumberController.text;
-
     try {
       List<MatchData> matches = await fetchMatchData(apiKey, eventKey, teamNumber);
-
+      print('Matches fetched successfully: ${matches.length}');
       // for (var match in matches) {
       //   for (var phase in ['auto', 'teleop', 'endgame']) {
       //     await saveDrawing(
