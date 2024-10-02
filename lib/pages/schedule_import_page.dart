@@ -65,8 +65,10 @@ class _ScheduleImportPageState extends State<ScheduleImportPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
+
               controller: apiKeyController,
               decoration: const InputDecoration(
                 labelText: 'Blue Alliance API Key',
@@ -88,11 +90,27 @@ class _ScheduleImportPageState extends State<ScheduleImportPage> {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _importSchedule,
-              child: const Text('Import Schedule'),
-            
-            ),
+            SizedBox(
+
+              child:  ElevatedButton(
+                onPressed: _importSchedule,
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.pressed)) {
+                    return Colors.black;
+                  }
+                  return Colors.white;
+                }),
+                textStyle: WidgetStateProperty.resolveWith((states){
+                  if(states.contains(WidgetState.pressed)){
+                    return TextStyle(backgroundColor: Colors.white ,color: Colors.black,fontSize: 20);
+                  }
+                  return TextStyle(backgroundColor: Colors.white,color: Colors.black,fontSize: 20);
+                })
+                ),
+                child: const Text('Import Schedule'),
+              ),
+            )
           ],
         ),
       ),

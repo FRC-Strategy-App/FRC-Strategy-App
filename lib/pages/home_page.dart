@@ -2,6 +2,7 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:frc_stategy_app/pages/drawings_page.dart';
+import 'package:frc_stategy_app/pages/profile_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'schedule_import_page.dart';
 import 'manual_match_page.dart';
@@ -24,6 +25,14 @@ class HomePage extends StatelessWidget {
                 color: Colors.blue,
               ),
               child: Text('Menu'),
+            ),
+            ListTile(
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.push(context, 
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+                );
+              },
             ),
             ListTile(
               title: const Text('Schedule Import'),
