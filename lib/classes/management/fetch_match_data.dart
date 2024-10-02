@@ -33,18 +33,24 @@ class MatchData {
   final List<String> allianceTeams;
   final List<String> opposingTeams;
   final int actualTime;
+  final int predictedTime;
+  final int Time;
 
-  MatchData({required this.matchKey, required this.allianceTeams, required this.opposingTeams,required this.actualTime});
+  MatchData({required this.matchKey, required this.allianceTeams, required this.opposingTeams,required this.actualTime,required this.predictedTime,required this.Time});
 
   factory MatchData.fromJson(Map<String, dynamic> json) {
     List<String> allianceTeams = List<String>.from(json['alliances']['blue']['team_keys']);
     List<String> opposingTeams = List<String>.from(json['alliances']['red']['team_keys']);
     final int actualtime = json['actual_time'];
+    final int predictedtime = json['predicted_time'];
+    final int time = json['time'];
     return MatchData(
       matchKey: json['key'],
       allianceTeams: allianceTeams,
       opposingTeams: opposingTeams,
       actualTime: actualtime,
+      predictedTime: predictedtime,
+      Time: time,
     );
   }
 }

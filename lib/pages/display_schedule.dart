@@ -1,16 +1,11 @@
-import 'package:file/local.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frc_stategy_app/classes/management/fetch_match_data.dart';
-import 'package:frc_stategy_app/pages/drawings_page.dart';
 import 'package:frc_stategy_app/pages/manual_match_page.dart';
-import 'package:path/path.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'package:frc_stategy_app/classes/teamCard.dart';
 class DisplaySchedule extends StatelessWidget {
   final List<MatchData> matchData; 
   const DisplaySchedule({super.key, required this.matchData});
-
   // This is for drawing page
   // Future<void> pushButton(BuildContext context) async {
   //   final prefs = await SharedPreferences.getInstance();
@@ -38,6 +33,15 @@ class DisplaySchedule extends StatelessWidget {
     return formattedDate;
   }
 
+  int isTimeNull(int? actualTime, int? time) {
+    if (actualTime == null && time != null) {
+      return 0;
+    } else if (actualTime == null && time == null) {
+      return 1;
+    }
+    return 2;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,32 +51,15 @@ class DisplaySchedule extends StatelessWidget {
       body: ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemCount: matchData.length,
-        itemBuilder: (BuildContext context, int index){
+        itemBuilder: (BuildContext context, int index) {
           final match = matchData[index];
-          return Card(
-            child: Column(
-              children: [
-                Text('Time: ${timeToDate(match.actualTime as int)}', style : const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20
-                ),),
-                Text('Blue Alliance: ${match.allianceTeams.join(',')}'),
-                Text('Red Alliance: ${match.opposingTeams.join(',')}'),
-                TextButton(
-                  style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(Colors.black12)
-                  ),
-                  onPressed: ()=> pushButton(context),
-                  child: const Text("Drawing", style: TextStyle(
-                    fontSize: 15
-                  ),),
-                  )
-              ],
-            ),
-            
-
+          return TeamCard(
+            match: match,
+            isTimeNull: isTimeNull,
+            timeToDate: timeToDate,
+            pushButton: pushButton,
           );
-        }
+        },
       ),
     );
   }
