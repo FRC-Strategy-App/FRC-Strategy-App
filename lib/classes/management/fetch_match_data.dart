@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<MatchData>> fetchMatchData(String apiKey, String eventKey, String teamNumber) async {
@@ -9,6 +10,7 @@ Future<List<MatchData>> fetchMatchData(String apiKey, String eventKey, String te
       'X-TBA-Auth-Key': apiKey,
     },
   );
+  // 'https://www.thebluealliance.com/api/v3/team/frc3847/event/2024txhou/matches'
 
   if (response.statusCode == 200) {
     List<dynamic> data = json.decode(response.body);
@@ -30,16 +32,26 @@ class MatchData {
   final String matchKey;
   final List<String> allianceTeams;
   final List<String> opposingTeams;
+  final int actualTime;
+  final int predictedTime;
+  final int Time;
 
-  MatchData({required this.matchKey, required this.allianceTeams, required this.opposingTeams});
+  MatchData({required this.matchKey, required this.allianceTeams, required this.opposingTeams,required this.actualTime,required this.predictedTime,required this.Time});
 
   factory MatchData.fromJson(Map<String, dynamic> json) {
     List<String> allianceTeams = List<String>.from(json['alliances']['blue']['team_keys']);
     List<String> opposingTeams = List<String>.from(json['alliances']['red']['team_keys']);
+    final int actualtime = json['actual_time'];
+    final int predictedtime = json['predicted_time'];
+    final int time = json['time'];
     return MatchData(
       matchKey: json['key'],
       allianceTeams: allianceTeams,
       opposingTeams: opposingTeams,
+      actualTime: actualtime,
+      predictedTime: predictedtime,
+      Time: time,
     );
   }
 }
+
