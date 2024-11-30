@@ -654,11 +654,16 @@ class FieldDrawingState extends State<FieldDrawing>
                           },
                         ),
                         IconButton(
-                          icon: const Icon(Icons.rebase_edit),
-                          iconSize: 30.0,
+                          // icon: const Icon(Icons.rebase_edit), // absoluety need to change.
+                          // iconSize: 30.0,
+                          // color: selectedTool == Tool.tempPencil
+                          //     ? Colors.blue
+                          //     : Colors.grey,
+                          icon: Image.asset('lib/icons/magic-wand.png',
+                          height: 30.0,
                           color: selectedTool == Tool.tempPencil
                               ? Colors.blue
-                              : Colors.grey,
+                              : Colors.grey,),
                           onPressed: () {
                             setState(() {
                               selectedTool = Tool.tempPencil;
@@ -666,11 +671,16 @@ class FieldDrawingState extends State<FieldDrawing>
                           },
                         ),
                         IconButton(
-                          icon: const Icon(Icons.edit_off_outlined),
-                          iconSize: 30.0,
+                          // icon: const Icon(Icons.edit_off_outlined), // eraser
+                          // iconSize: 30.0,
+                          // color: selectedTool == Tool.eraser
+                          //     ? customPink
+                          //     : Colors.grey,
+                          icon: Image.asset('lib/icons/eraser.png',
                           color: selectedTool == Tool.eraser
                               ? customPink
                               : Colors.grey,
+                          height: 30,),
                           onPressed: () {
                             setState(() {
                               selectedTool = Tool.eraser;
