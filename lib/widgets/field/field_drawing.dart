@@ -661,6 +661,7 @@ class FieldDrawingState extends State<FieldDrawing>
                           //     : Colors.grey,
                           icon: Image.asset('lib/icons/magic-wand.png',
                           height: 30.0,
+                          width: 25.0,
                           color: selectedTool == Tool.tempPencil
                               ? Colors.blue
                               : Colors.grey,),
@@ -680,7 +681,8 @@ class FieldDrawingState extends State<FieldDrawing>
                           color: selectedTool == Tool.eraser
                               ? customPink
                               : Colors.grey,
-                          height: 30,),
+                          height: 30.0,
+                          width: 25.0,),
                           onPressed: () {
                             setState(() {
                               selectedTool = Tool.eraser;
